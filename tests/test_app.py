@@ -5,6 +5,7 @@ import os
 from http.server import HTTPServer
 from socketserver import BaseRequestHandler
 from http.client import HTTPConnection
+import threading
 
 class TestAuthHandler(unittest.TestCase):
     @classmethod
