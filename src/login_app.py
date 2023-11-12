@@ -58,7 +58,9 @@ def check_credentials(username, password):
         bool: True if the username and password are valid, False otherwise.
     """
     with open(HTACCESS_FILE, 'r') as file:
+        print(f"Contents of {HTACCESS_FILE}:")
         for line in file:
+            print(line.strip())
             if line.strip():
                 valid_user, valid_pass = line.strip().split(':', 1)
                 if username == valid_user and password == valid_pass:
