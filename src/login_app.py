@@ -110,7 +110,7 @@ def login():
         else:
             return render_template('login.html', error="Invalid credentials", original_url=original_url), 401
 
-    return render_template('templates/login.html', original_url=original_url)
+    return render_template('login.html', original_url=original_url)
 
 if __name__ == '__main__':
     app.run(debug=True)
