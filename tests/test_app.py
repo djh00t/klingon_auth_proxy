@@ -22,6 +22,7 @@ class TestAuthHandler(unittest.TestCase):
     def tearDownClass(cls):
         cls.server.shutdown()
         cls.thread.join()
+        cls.server.server_close()  # Close the server's socket
 
     def test_valid_token(self):
         # Generate a valid token
