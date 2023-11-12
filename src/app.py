@@ -33,7 +33,7 @@ def get_or_create_secret_key(file_path):
             file.write(secret_key)
         return secret_key
 
-SECRET_KEY = get_or_create_secret_key("secret.key")
+SECRET_KEY = get_or_create_secret_key(os.environ.get('SECRET_KEY_FILE', 'secret.key'))
 
 class AuthHandler(http.server.SimpleHTTPRequestHandler):
     """
