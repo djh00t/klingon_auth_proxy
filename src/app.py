@@ -13,7 +13,7 @@ import os
 import secrets
 
 # Constants
-APP_PORT=os.environ.get('APP_PORT', 9112)
+APP_PORT=os.environ.get('APP_PORT', 9113)
 
 def get_or_create_secret_key(file_path):
     """
