@@ -1,0 +1,9 @@
+version: '3.8'
+
+services:
+  auth-app:
+    build: .
+    ports:
+      - "9000:9000"
+    volumes:
+      - /etc/nginx/passwords:/etc/nginx/passwords:ro
