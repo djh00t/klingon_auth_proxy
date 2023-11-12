@@ -5,6 +5,10 @@ services:
     - infinity
     image: docker/dev-environments-default:stable-1
     init: true
+    environment:
+      - PORT=9111
+      - HTACCESS_FILE=/etc/nginx/passwords
+      - SECRET_KEY_FILE=secret.key
     volumes:
     - type: bind
       source: /var/run/docker.sock

@@ -5,5 +5,9 @@ services:
     build: .
     ports:
       - "9000:9000"
+    environment:
+      - PORT=9111
+      - HTACCESS_FILE=/etc/nginx/passwords
+      - SECRET_KEY_FILE=secret.key
     volumes:
       - /etc/nginx/passwords:/etc/nginx/passwords:ro
