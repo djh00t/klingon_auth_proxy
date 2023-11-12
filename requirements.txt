@@ -4,4 +4,3 @@ PyJWT==2.1.0
 Flask-Testing==0.8.1
 jinja2==2.11.3
 MarkupSafe==2.0.1
-MarkupSafe==2.0.1
