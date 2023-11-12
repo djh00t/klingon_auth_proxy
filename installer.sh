@@ -73,14 +73,23 @@ fi
 pip install aider-chat
 
 # Install VueJS
-npm install -g @vue/cli
+npm install -g @vue/cli @vue/compiler-sfc
 
 # Create VueJS Project
-vue create --preset ./vue-preset.json $PROJECT
+vue create --preset ./presets/vue-preset.json $PROJECT
 cd $PROJECT
+#cp ../presets/package.json ./package.json
+
+#echo "export $PATH:/com.docker.devenvironments.code/klingon-auth-proxy/node_modules/.bin" >> /root/.bashrc
+#PATH=$PATH:/com.docker.devenvironments.code/klingon-auth-proxy/node_modules/.bin
+
 
 # Install project dependencies
-npm install
+npm install vue-router
+npm install axios
+npm install vuex
+npm install vuetify
+npm install bootstrap-vue
 
 # Run NPM server
 npm run serve
