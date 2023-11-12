@@ -14,9 +14,15 @@ git config --global --add safe.directory /com.docker.devenvironments.code
 
 # Add personal bashrc exports to bashrc
 # This will add the line every time the script runs, consider checking if the line already exists
-cat /root/.bash_profile | grep -v "#" | grep "export AWS" >> /root/.bashrc
-cat /root/.bash_profile | grep -v "#" | grep "export OPENAI" >> /root/.bashrc
-cat /root/.bash_profile | grep -v "#" | grep "export GITHUB" >> /root/.bashrc
+if ! grep -q "export AWS" /root/.bashrc; then
+    cat /root/.bash_profile | grep -v "#" | grep "export AWS" >> /root/.bashrc
+fi
+if ! grep -q "export OPENAI" /root/.bashrc; then
+    cat /root/.bash_profile | grep -v "#" | grep "export OPENAI" >> /root/.bashrc
+fi
+if ! grep -q "export GITHUB" /root/.bashrc; then
+    cat /root/.bash_profile | grep -v "#" | grep "export GITHUB" >> /root/.bashrc
+fi
 
 # Add personal bashrc settings to environment
 source /root/.bashrc
@@ -56,7 +62,12 @@ fi
 # Update the system and install NodeJS and NPM
 apt-get update
 apt-get -y dist-upgrade
-apt-get install -y nodejs npm build-essential
+if ! command -v node >/dev/null 2>&1; then
+    apt-get install -y nodejs npm
+fi
+if ! command -v gcc >/dev/null 2>&1; then
+    apt-get install -y build-essential
+fi
 
 # Install aider for extra j00se
 pip install aider-chat
@@ -65,14 +76,11 @@ pip install aider-chat
 npm install -g @vue/cli
 
 # Create VueJS Project
-vue create $PROJECT
+vue create --preset ./vue-preset.json $PROJECT
 cd $PROJECT
 
 # Install project dependencies
 npm install
-
-# Update VueJS Project
-npm audit fix --force
 
 # Run NPM server
 npm run serve
