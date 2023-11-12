@@ -108,7 +108,7 @@ def login():
             resp.set_cookie('auth_token', token, httponly=True, samesite='Lax')
             return resp
         else:
-            return render_template('templates/login.html', error="Invalid credentials", original_url=original_url), 401
+            return render_template('login.html', error="Invalid credentials", original_url=original_url), 401
 
     return render_template('login.html', original_url=original_url)
 
