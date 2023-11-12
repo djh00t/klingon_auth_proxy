@@ -131,3 +131,4 @@ dist
 .aider*
 
 **.pyc
+secrets
