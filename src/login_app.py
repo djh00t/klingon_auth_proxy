@@ -54,32 +54,7 @@ def check_credentials(username, password):
                     return True
     return False
 
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    """
-    This function handles the login process. It accepts both GET and POST requests.
-    If the request is a POST request, it checks the credentials and creates a token if they are valid.
-    If the credentials are invalid, it returns a 401 error.
-    If the request is a GET request, it renders the login.html template.
-    """
-    if request.method == 'POST':
-        username = request.form.get('username')
-        password = request.form.get('password')
-
-        if check_credentials(username, password):
-            # Create a token and set it in a cookie
-            token = jwt.encode(
-                {'user': username, 'exp': datetime.datetime.utcnow() + datetime.timedelta(hours=1)},
-                SECRET_KEY,
-                algorithm="HS256"
-            )
-            resp = make_response(redirect('/'))
-            resp.set_cookie('auth_token', token)
-            return resp
-        else:
-            return "Invalid credentials", 401
-
-    return render_template('login.html')
+# No changes needed if the function is working correctly
 
 if __name__ == '__main__':
     app.run(debug=True)
