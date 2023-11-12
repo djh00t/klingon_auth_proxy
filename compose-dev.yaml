@@ -9,5 +9,6 @@ services:
     - type: bind
       source: /var/run/docker.sock
       target: /var/run/docker.sock
-    - /Users/djh/.bash_profile:/root/.bash_profile
-
+    - type: bind
+      source: /Users/djh/.bash_profile
+      target: /root/.bash_profile
