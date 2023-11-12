@@ -6,7 +6,7 @@ class TestLoginApp(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         src.login_app.app.testing = True
-        cls.client = login_app.app.test_client()
+        cls.client = src.login_app.app.test_client()
 
     def test_login_success(self):
         # Test login with correct credentials
