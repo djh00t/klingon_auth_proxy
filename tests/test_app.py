@@ -1,5 +1,5 @@
 import unittest
-import src.app
+from src import app
 import jwt
 import os
 from http.server import HTTPServer
