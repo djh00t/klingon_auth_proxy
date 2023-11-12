@@ -15,7 +15,7 @@ import secrets
 app = Flask(__name__)
 
 # Constants
-HTACCESS_FILE = "../secrets"
+HTACCESS_FILE = "secrets"
 
 
 def get_or_create_secret_key(file_path):
@@ -117,4 +117,4 @@ def login():
     return render_template('login.html', original_url=original_url)
 
 if __name__ == '__main__':
-    app.run(debug=True, extra_files=['./secrets'], port=9111)
+    app.run(debug=True, extra_files=['../secrets'], port=9111)
