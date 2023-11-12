@@ -72,6 +72,10 @@ def check_credentials(username, password):
                     return True
     return False
 
+@app.route('/', methods=['GET'])
+def root():
+    return redirect('/login', code=302)
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     """
@@ -113,4 +117,4 @@ def login():
     return render_template('login.html', original_url=original_url)
 
 if __name__ == '__main__':
-    app.run(debug=True, extra_files=['./secrets'])
+    app.run(debug=True, extra_files=['./secrets'], port=9111)
