@@ -30,11 +30,15 @@ def get_or_create_secret_key(file_path):
     """
     try:
         with open(file_path, "r") as file:
+            # Debug
+            print(f"Secret key read from {file_path}")
             return file.read().strip()
     except FileNotFoundError:
         secret_key = secrets.token_urlsafe(32)
         with open(file_path, "w") as file:
             file.write(secret_key)
+            # Debug
+            print(f"Secret key written to {file_path}")
         return secret_key
 
 # Variables
