@@ -27,6 +27,11 @@ curl -o $HOME/mini.sh https://repo.anaconda.com/miniconda/Miniconda3-latest-Linu
 bash $HOME/mini.sh -b -u
 rm -rf $HOME/mini.sh
 
+# Add conda to path
+~/miniconda3/bin/conda init bash
+echo "PATH=$PATH:/root/miniconda3/bin/" >> /root/.bashrc
+PATH=$PATH:/root/miniconda3/bin/
+
 # Source /root/.bashrc
 # It's assumed that this file exists and is readable
 if [[ -f /root/.bashrc ]]; then
@@ -37,7 +42,7 @@ else
 fi
 
 # Install Python 3.11 and pip
-conda install python==3.11 pip
+conda install -y python==3.11 pip
 
 # Source /root/.bashrc
 # It's assumed that this file exists and is readable
@@ -51,7 +56,7 @@ fi
 # Update the system and install NodeJS and NPM
 apt-get update
 apt-get -y dist-upgrade
-apt-get install -y nodejs npm
+apt-get install -y nodejs npm build-essential
 
 # Install aider for extra j00se
 pip install aider-chat
