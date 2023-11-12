@@ -60,10 +60,18 @@ else
 fi
 
 # Update the system and install NodeJS and NPM
-apt-get update
-apt-get -y dist-upgrade
+# apt-get update
+# apt-get -y dist-upgrade
 if ! command -v node >/dev/null 2>&1; then
-    apt-get install -y nodejs npm
+    # apt-get install -y nodejs npm
+    cd /root/
+    curl -s -o /root/node-v20.9.0-linux-arm64.xz https://nodejs.org/dist/v20.9.0/node-v20.9.0-linux-arm64.tar.xz
+    tar -xf /root/node-v20.9.0-linux-arm64.tar.xz
+    rm -rf node-v20.9.0-linux-arm64.tar.xz
+    # Link node and npm binary to /usr/bin
+    ln -s /root/node-v20.9.0-linux-arm64/bin/node /usr/bin/node
+    ln -s /root/node-v20.9.0-linux-arm64/bin/npm /usr/bin/npm
+    cd /com.docker.devenvironments.code
 fi
 if ! command -v gcc >/dev/null 2>&1; then
     apt-get install -y build-essential
@@ -78,6 +86,7 @@ npm install -g @vue/cli @vue/compiler-sfc
 # Create VueJS Project
 vue create --preset ./presets/vue-preset.json $PROJECT
 cd $PROJECT
+
 #cp ../presets/package.json ./package.json
 
 #echo "export $PATH:/com.docker.devenvironments.code/klingon-auth-proxy/node_modules/.bin" >> /root/.bashrc
