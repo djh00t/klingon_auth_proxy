@@ -1,4 +1,4 @@
-Flask==1.1.2
+Flask==2.2.5
 Werkzeug==1.0.0
 PyJWT==2.8.0
 Flask-Testing==0.8.1
