@@ -60,6 +60,20 @@ class AuthHandler(http.server.SimpleHTTPRequestHandler):
             self.send_response(403)
         self.end_headers()
 
+import signal
+import sys
+
+def signal_handler(sig, frame):
+    """
+    Handles the SIGINT signal to terminate the server process properly.
+
+    Args:
+        sig (int): The signal number.
+        frame (frame): The current stack frame.
+    """
+    print("Server is shutting down...")
+    sys.exit(0)
+
 def run(server_class=socketserver.TCPServer, handler_class=AuthHandler, port=APP_PORT):
     """
     Runs the server with the given server class, handler class, and port.
@@ -72,7 +86,13 @@ def run(server_class=socketserver.TCPServer, handler_class=AuthHandler, port=APP
     server_address = ('', port)
     httpd = server_class(server_address, handler_class)
     print(f"Serving at port {port}")
-    httpd.serve_forever()
+    try:
+        httpd.serve_forever()
+    except KeyboardInterrupt:
+        pass
+    httpd.server_close()
+    print("Server stopped.")
 
 if __name__ == "__main__":
+    signal.signal(signal.SIGINT, signal_handler)
     run()
