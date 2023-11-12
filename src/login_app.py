@@ -54,7 +54,14 @@ def check_credentials(username, password):
                     return True
     return False
 
-# No changes needed if the function is working correctly
+@app.route('/login', methods=['POST'])
+def login():
+    username = request.form.get('username')
+    password = request.form.get('password')
+    if check_credentials(username, password):
+        return redirect('/success', code=302)
+    else:
+        return make_response('Unauthorized', 401)
 
 if __name__ == '__main__':
     app.run(debug=True)
