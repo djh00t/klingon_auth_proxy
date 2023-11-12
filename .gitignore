@@ -132,3 +132,4 @@ dist
 
 **.pyc
 secrets
+secret.key
