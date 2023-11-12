@@ -20,5 +20,4 @@ run:
 	python src/app.py
 
 start:
-	@echo "Starting the application..."
-	python src/app.py
+	@make run
