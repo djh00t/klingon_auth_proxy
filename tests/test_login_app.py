@@ -5,7 +5,7 @@ from flask import json
 class TestLoginApp(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        login_app.app.testing = True
+        src.login_app.app.testing = True
         cls.client = login_app.app.test_client()
 
     def test_login_success(self):
