@@ -116,4 +116,4 @@ def login():
     return render_template('login.html', original_url=original_url)
 
 if __name__ == '__main__':
-    app.run(debug=True, extra_files=[HTACCESS_FILE], port=APP_PORT)
+    app.run(debug=True, use_reloader=True, extra_files=[HTACCESS_FILE], port=APP_PORT)
