@@ -4,10 +4,10 @@ services:
   auth-app:
     build: .
     ports:
-      - "9000:9000"
+      - "9111:9111"
     environment:
-      - PORT=9111
-      - HTACCESS_FILE=/etc/nginx/passwords
-      - SECRET_KEY_FILE=secret.key
+      - APP_PORT=9111
+      - HTACCESS_FILE=/com.docker.devenvironments.code/secrets
+      - SECRET_KEY_FILE=/com.docker.devenvironments.code/secret.key
     volumes:
       - /etc/nginx/passwords:/etc/nginx/passwords:ro

@@ -17,7 +17,7 @@ install:
 
 run:
 	@echo "Running the application..."
-	python src/login_app.py
+	python src/app.py
 
 start:
 	@make run

@@ -15,26 +15,18 @@ import secrets
 app = Flask(__name__)
 
 # Constants
-HTACCESS_FILE = os.environ.get('HTACCESS_FILE', 'secrets')
-
+HTACCESS_FILE = os.environ.get('HTACCESS_FILE', '../secrets')
+APP_PORT=os.environ.get('APP_PORT', 9111)
 
 def get_or_create_secret_key(file_path):
     """
-    # Generate/Read Secret Key
-    Returns the secret key stored in the given file path, or creates a new one if the file does not exist.
-    
-    ## Arguments
+    Returns the secret key stored in the file at the given file path, or creates a new secret key and stores it in the file if the file does not exist.
 
-    | Name | Type | Description | Default |
-    | --- | --- | --- | --- |
-    | file_path | str | The path to the file containing the secret key. | None |
-    
-    ## Returns
+    Args:
+        file_path (str): The path to the file containing the secret key.
 
-    | Name | Type | Description |
-    | --- | --- | --- |
-    | secret_key | str | The secret key. |
-    
+    Returns:
+        str: The secret key.
     """
     try:
         with open(file_path, "r") as file:
@@ -45,8 +37,9 @@ def get_or_create_secret_key(file_path):
             file.write(secret_key)
         return secret_key
 
-# Generate SECRET_KEY if it doesn't exist otherwise read the file.
-SECRET_KEY = get_or_create_secret_key("secret.key")
+# Variables
+SECRET_KEY = get_or_create_secret_key(os.environ.get('SECRET_KEY_FILE', 'secret.key'))
+
 """
 # SECRET_KEY
 Generate SECRET_KEY if it doesn't exist otherwise read the file.
@@ -117,4 +110,4 @@ def login():
     return render_template('login.html', original_url=original_url)
 
 if __name__ == '__main__':
-    app.run(debug=True, extra_files=['../secrets'], port=9111)
+    app.run(debug=True, extra_files=[HTACCESS_FILE], port=APP_PORT)

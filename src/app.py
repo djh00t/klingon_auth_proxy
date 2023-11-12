@@ -12,7 +12,8 @@ import jwt
 import os
 import secrets
 
-PORT = 9111
+# Constants
+APP_PORT=os.environ.get('APP_PORT', 9111)
 
 def get_or_create_secret_key(file_path):
     """
@@ -33,6 +34,7 @@ def get_or_create_secret_key(file_path):
             file.write(secret_key)
         return secret_key
 
+# Variables
 SECRET_KEY = get_or_create_secret_key(os.environ.get('SECRET_KEY_FILE', 'secret.key'))
 
 class AuthHandler(http.server.SimpleHTTPRequestHandler):
@@ -58,7 +60,7 @@ class AuthHandler(http.server.SimpleHTTPRequestHandler):
             self.send_response(403)
         self.end_headers()
 
-def run(server_class=socketserver.TCPServer, handler_class=AuthHandler, port=PORT):
+def run(server_class=socketserver.TCPServer, handler_class=AuthHandler, port=APP_PORT):
     """
     Runs the server with the given server class, handler class, and port.
 
