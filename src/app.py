@@ -43,8 +43,8 @@ class AuthHandler(http.server.SimpleHTTPRequestHandler):
     Otherwise, a 401 Unauthorized response is sent.
     """
     def do_GET(self):
-        token = self.headers.get('Cookie')  # Extract token from cookie
-        token = token.split('=')[1] if token else None
+        authorization_header = self.headers.get('Authorization')  # Extract token from Authorization header
+        token = authorization_header[7:] if authorization_header and authorization_header.startswith('Bearer ') else None
 
         if not token:
             self.send_response(401)
