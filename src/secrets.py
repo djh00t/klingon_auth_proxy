@@ -28,9 +28,9 @@ def get_hashing_algorithm(file_path):
             line = file.readline().strip()
             if line:
                 username, hashed_password = line.split(':', 1)
-                if hashed_password.startswith("$2b$"):
-                    logger.info(f"Hashing algorithm for {file_path} detected: bcrypt")
-                    return "bcrypt"
+                if hashed_password.startswith("$apr1$"):
+                    logger.info(f"Hashing algorithm for {file_path} detected: md5")
+                    return "md5"
     except FileNotFoundError:
         pass
     return 'bcrypt'
