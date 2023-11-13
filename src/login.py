@@ -12,7 +12,7 @@ from fastapi.templating import Jinja2Templates
 from jose import JWTError, jwt
 from datetime import datetime, timedelta, timezone
 import os
-import secrets
+from .secrets import SECRET_KEY, HTACCESS_FILE
 
 # Create FastAPI app
 app = FastAPI()
@@ -25,13 +25,7 @@ if not os.path.exists("./templates"):
         file.write("<h1>Hello world!</h1>")
 templates = Jinja2Templates(directory="templates")
 
-# Constants
-HTACCESS_FILE = os.environ.get("HTACCESS_FILE", "../secrets")
-APP_PORT = os.environ.get("APP_PORT", 9111)
-
-# Import SECRET_KEY from secrets module
-from .secrets import SECRET_KEY
-
+# Check user and password credentials
 def check_credentials(username: str, password: str):
     """
     Check if the given username and password are valid credentials.
