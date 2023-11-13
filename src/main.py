@@ -20,8 +20,8 @@ app.mount("/login", login_app)
 # Security
 security = HTTPBearer()
 
-# Constants
-HTACCESS_FILE = os.environ.get("HTACCESS_FILE", "../secrets")
+# Import SECRET_KEY from secrets module
+from .secrets import SECRET_KEY
 APP_PORT = os.environ.get("APP_PORT", 9111)
 
 # Check credentials
