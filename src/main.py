@@ -116,7 +116,7 @@ async def root(request: Request):
     logger.info(f"Redirecting / request to /login")
     return RedirectResponse(url="/login")
 
-@app.get("/login")
+@app.get("/login" "/auth")
 async def login_get(request: Request):
     referrer_url = request.headers.get("referer")
     logger.info(f"Referrer URL: {referrer_url}")
