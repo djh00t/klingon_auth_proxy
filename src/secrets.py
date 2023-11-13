@@ -2,7 +2,11 @@ import os
 import secrets
 
 # Constants
-HTACCESS_FILE = os.environ.get("HTACCESS_FILE", "../secrets")
+HTACCESS_FILE = os.environ.get("HTACCESS_FILE", "secrets")
+
+# Confirm the type of hashing used in HTACCESS_FILE
+
+
 
 # Generate secret.key if it doesn't exist
 def get_or_create_secret_key(file_path):

@@ -10,16 +10,22 @@ from fastapi.responses import RedirectResponse
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from fastapi.templating import Jinja2Templates
 from jose import JWTError, jwt
-from jose import JWTError, jwt
 from datetime import datetime, timedelta, timezone
 from .secrets import SECRET_KEY, HTACCESS_FILE
-from .secrets import SECRET_KEY
+
 
 # Create a logger
 logger = logging.getLogger("uvicorn")
 logger.setLevel(logging.DEBUG)
 
+# Create FastAPI app
 app = FastAPI()
+
+# Security
+security = HTTPBearer()
+
+# Set APP_PORT from environment variable or default to 9111
+APP_PORT = os.environ.get("APP_PORT", 9111)
 
 # Create FastAPI app
 def check_credentials(username: str, password: str):
@@ -81,15 +87,6 @@ if not os.path.exists(login_html_path):
 </html>
 """)
 
-# app.mount("/login", login_app)
-
-# Security
-security = HTTPBearer()
-
-# Import SECRET_KEY from secrets module
-from .secrets import SECRET_KEY
-APP_PORT = os.environ.get("APP_PORT", 9111)
-
 # Check credentials
 async def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(security)):
     """
@@ -116,10 +113,9 @@ async def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(s
         logger.info("Authorization header missing.")
         raise HTTPException(status_code=401, detail="Authorization header missing")
 
-
-
 @app.get("/")
 async def root():
+    logger.info(f"Redirecting / request to /login")
     return RedirectResponse(url="/login")
 
 @app.get("/login")
@@ -145,6 +141,7 @@ async def login_post(request: Request, response: Response, username: str = Form(
     Raises:
     - HTTPException: If the credentials are invalid.
     """
+    logger.info(f"Handling authentication POST")
     if check_credentials(username, password):
         token = jwt.encode(
             {"user": username, "exp": datetime.now(timezone.utc) + timedelta(hours=1)},
