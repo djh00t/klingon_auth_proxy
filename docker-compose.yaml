@@ -10,4 +10,6 @@ services:
       - HTACCESS_FILE=/com.docker.devenvironments.code/secrets
       - SECRET_KEY_FILE=/com.docker.devenvironments.code/secret.key
     volumes:
-      - /etc/nginx/passwords:/app/htpasswd:ro
+    - type: bind
+      source: /Users/djh/work/src/github.com/klingon_auth_proxy/secrets
+      target: /app/secrets

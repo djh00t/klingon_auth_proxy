@@ -18,3 +18,6 @@ services:
     - type: bind
       source: /Users/djh/.bash_profile
       target: /root/.bash_profile
+    - type: bind
+      source: /Users/djh/work/src/github.com/klingon_auth_proxy/secrets
+      target: /app/secrets
