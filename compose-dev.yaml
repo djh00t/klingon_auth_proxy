@@ -7,7 +7,7 @@ services:
     image: docker/dev-environments-default:stable-1
     init: true
     ports:
-      - "9000:9000"
+      - "9111:9111"
     environment:
       - HTACCESS_FILE=/app/secrets
       - SECRET_KEY_FILE=/app/secret.key
