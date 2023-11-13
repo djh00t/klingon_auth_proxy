@@ -28,7 +28,8 @@ if not os.path.exists("./templates"):
     os.mkdir("./templates")
     with open("./templates/index.html", "w") as file:
         file.write("<h1>Hello world!</h1>")
-templates = Jinja2Templates(directory="templates")
+templates_dir = os.path.join(os.path.dirname(os.path.realpath(__file__)), "templates")
+templates = Jinja2Templates(directory=templates_dir)
 
 # Check user and password credentials
 def check_credentials(username: str, password: str):
