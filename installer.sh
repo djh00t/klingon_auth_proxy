@@ -33,6 +33,24 @@ else
     exit 1
 fi
 
-# Install aider for extra j00se
+# Install apt packages
+apt-get -y update; apt-get -y install \
+    apt-transport-https \
+    ca-certificates \
+    curl \
+    git \
+    gnupg-agent \
+    jq \
+    make \
+    python3 \
+    python3-pip \
+    software-properties-common \
+    unzip \
+    wget
+
+# Install requirements.txt
+pip install -r /app/requirements.txt
+
+# Install aider for debugging and tests    
 pip install aider-chat
 
