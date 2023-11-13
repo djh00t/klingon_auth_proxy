@@ -87,6 +87,8 @@ def run(server_class=socketserver.TCPServer, handler_class=AuthHandler, port=APP
     try:
         print(f"Serving at port {port}")
         httpd.serve_forever()
+    except KeyboardInterrupt:
+        pass
     finally:
         print("Stopping server")
         httpd.shutdown()
