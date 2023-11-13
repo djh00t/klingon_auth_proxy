@@ -1,8 +1,9 @@
+version: '3.8'
 services:
   app:
     entrypoint:
-    - sleep
-    - infinity
+      - sleep
+      - infinity
     image: docker/dev-environments-default:stable-1
     init: true
     ports:
@@ -11,12 +12,15 @@ services:
       - HTACCESS_FILE=/app/secrets
       - SECRET_KEY_FILE=/app/secret.key
     volumes:
-    - type: bind
-      source: /var/run/docker.sock
-      target: /var/run/docker.sock
-    - type: bind
-      source: "${HOME}/.bash_profile"
-      target: /app/.bash_profile
-    - type: bind
-      source: "${HOME}/work/src/github.com/djh00t/klingon_auth_proxy/secrets"
-      target: /app/secrets
+      - type: bind
+        source: /var/run/docker.sock
+        target: /var/run/docker.sock
+      - type: bind
+        source: "${HOME}/.bash_profile"
+        target: /root/.bash_profile
+        bind:
+          propagation: rprivate
+          optional: true
+      - type: bind
+        source: "${HOME}/work/src/github.com/djh00t/klingon_auth_proxy/secrets"
+        target: /app/secrets
