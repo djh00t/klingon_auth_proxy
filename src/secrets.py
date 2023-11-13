@@ -28,22 +28,12 @@ def get_hashing_algorithm(file_path):
             line = file.readline().strip()
             if line:
                 username, hashed_password = line.split(':', 1)
-                for algorithm in hashlib.algorithms_guaranteed:
-                    hasher = hashlib.new(algorithm)
-                    hasher.update(username.encode())
-                    try:
-                        if hasher.hexdigest() == hashed_password:
-                            logger.info(f"Hashing algorithm for {file_path} detected: {algorithm}")
-                            return algorithm
-                    except TypeError:
-                        # Some algorithms like 'shake_128' and 'shake_256' require a length argument
-                        for length in range(1, 65):  # Try lengths from 1 to 64
-                            if hasher.hexdigest(length) == hashed_password:
-                                logger.info(f"Hashing algorithm for {file_path} detected: {algorithm}")
-                                return algorithm
+                if hashed_password.startswith("$2b$"):
+                    logger.info(f"Hashing algorithm for {file_path} detected: bcrypt")
+                    return "bcrypt"
     except FileNotFoundError:
         pass
-    return 'sha256'
+    return 'bcrypt'
 
 HASHING_ALGORITHM = get_hashing_algorithm(HTACCESS_FILE)
 
