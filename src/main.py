@@ -5,6 +5,7 @@ It defines a root endpoint that returns a message for authenticated users.
 """
 import os
 import logging
+import bcrypt
 from fastapi import FastAPI, Request, Form, Cookie, HTTPException, Depends, Response
 from fastapi.responses import RedirectResponse
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
