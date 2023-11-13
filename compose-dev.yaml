@@ -1,6 +1,6 @@
 version: '3.8'
 services:
-  app:
+  htaccess:
     entrypoint:
       - sleep
       - infinity
@@ -19,3 +19,10 @@ services:
       - type: bind
         source: "/Users/djh/work/src/github.com/djh00t/klingon_auth_proxy/environment"
         target: /app/environment
+  nginx:
+    image: nginx:latest
+    ports:
+      - "8080:80"
+    volumes:
+      - ./nginx/config/default.conf:/etc/nginx/conf.d/default.conf
+      - ./nginx/html:/usr/share/nginx/html
