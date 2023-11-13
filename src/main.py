@@ -12,7 +12,7 @@ from .login import app as login_app
 from .secrets import SECRET_KEY
 
 # Create a logger
-logger = logging.getLogger(__name__)
+logger = logging.getLogger("uvicorn")
 logger.setLevel(logging.DEBUG)
 
 # FILEPATH: src/main.py

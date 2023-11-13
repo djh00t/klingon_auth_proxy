@@ -16,7 +16,7 @@ import os
 from .secrets import SECRET_KEY, HTACCESS_FILE
 
 # Create a logger
-logger = logging.getLogger(__name__)
+logger = logging.getLogger("uvicorn")
 logger.setLevel(logging.DEBUG)
 
 # Create FastAPI app
