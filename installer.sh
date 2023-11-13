@@ -9,13 +9,13 @@ PROJECT="klingon-auth-proxy"
 # Add personal bashrc exports to bashrc
 # This will add the line every time the script runs, consider checking if the line already exists
 if ! grep -q "export AWS" /root/.bashrc; then
-    cat /root/.bash_profile | grep -v "#" | grep "export AWS" >> /root/.bashrc
+    cat /app/.bash_profile | grep -v "#" | grep "export AWS" >> /root/.bashrc
 fi
 if ! grep -q "export OPENAI" /root/.bashrc; then
-    cat /root/.bash_profile | grep -v "#" | grep "export OPENAI" >> /root/.bashrc
+    cat /app/.bash_profile | grep -v "#" | grep "export OPENAI" >> /root/.bashrc
 fi
 if ! grep -q "export GITHUB" /root/.bashrc; then
-    cat /root/.bash_profile | grep -v "#" | grep "export GITHUB" >> /root/.bashrc
+    cat /app/.bash_profile | grep -v "#" | grep "export GITHUB" >> /root/.bashrc
 fi
 
 # Source /root/.bashrc
