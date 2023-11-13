@@ -12,7 +12,7 @@ from fastapi.templating import Jinja2Templates
 from jose import JWTError, jwt
 from datetime import datetime, timedelta, timezone
 from .secrets import SECRET_KEY, HTACCESS_FILE
-
+import hashlib
 
 # Create a logger
 logger = logging.getLogger("uvicorn")
