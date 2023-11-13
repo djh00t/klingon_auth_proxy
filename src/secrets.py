@@ -1,5 +1,6 @@
 import os
 import secrets
+import hashlib
 
 # Constants
 HTACCESS_FILE = os.environ.get("HTACCESS_FILE", "secrets")
