@@ -74,8 +74,13 @@ def run(server_class=socketserver.TCPServer, handler_class=AuthHandler, port=POR
     """
     server_address = ('', port)
     httpd = server_class(server_address, handler_class)
-    print(f"Serving at port {port}")
-    httpd.serve_forever()
+    try:
+        print(f"Serving at port {port}")
+        httpd.serve_forever()
+    finally:
+        print("Stopping server")
+        httpd.shutdown()
+        httpd.server_close()
 
 if __name__ == "__main__":
     run()
