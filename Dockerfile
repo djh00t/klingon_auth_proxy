@@ -1,5 +1,15 @@
-FROM python:3.8-slim
+###
+### Klingon Auth Proxy Dockerfile
+###
+# Use the official Python image.
+FROM python:3.9-slim
+
+# Copy local code to the container image.
 WORKDIR /app
-COPY src/main.py /app
-COPY src/secrets.py /app
-CMD ["python", "/app/main.py"]
+COPY . /app
+
+# Install production dependencies.
+RUN pip install -r /app/requirements.txt
+
+# Run the web service on container startup.
+CMD ["python", "/app/src/main.py"]
