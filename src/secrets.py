@@ -1,11 +1,16 @@
 import os
 import secrets
 import hashlib
+import logging
+
+# Create a logger
+logger = logging.getLogger("uvicorn")
+logger.setLevel(logging.DEBUG)
 
 # Constants
 HTACCESS_FILE = os.environ.get("HTACCESS_FILE", "secrets")
 
-import hashlib
+logger.info(f"HTACCESS_FILE is: {HTACCESS_FILE}")
 
 # Confirm the type of hashing used in HTACCESS_FILE
 def get_hashing_algorithm(file_path):
@@ -42,6 +47,7 @@ def get_hashing_algorithm(file_path):
 
 HASHING_ALGORITHM = get_hashing_algorithm(HTACCESS_FILE)
 
+logger.info(f"HASHING_ALGORITHM is: {HASHING_ALGORITHM}")
 
 
 # Generate secret.key if it doesn't exist
