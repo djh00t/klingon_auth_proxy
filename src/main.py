@@ -21,8 +21,45 @@ logger.setLevel(logging.DEBUG)
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger("uvicorn.error")
 
+import os
+
 # Create FastAPI app
 app = FastAPI()
+
+# Check if templates directory exists and create it if it doesn't
+if not os.path.exists('templates'):
+    os.makedirs('templates')
+
+# Check if login.html exists and create it if it doesn't
+login_html_path = os.path.join('templates', 'login.html')
+if not os.path.exists(login_html_path):
+    with open(login_html_path, 'w') as f:
+        f.write("""
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f7f7f7; text-align: center; padding: 50px; }
+        form { background-color: white; padding: 40px; border-radius: 10px; display: inline-block; }
+        input { margin: 10px 0; padding: 10px; width: 200px; border-radius: 5px; border: 1px solid #ddd; }
+        button { padding: 10px 20px; background-color: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer; }
+        button:hover { background-color: #0056b3; }
+    </style>
+</head>
+<body>
+    <form action="/login" method="post">
+        <h2>Login</h2>
+        <input type="text" name="username" placeholder="Username" required><br>
+        <input type="password" name="password" placeholder="Password" required><br>
+        <button type="submit">Login</button>
+    </form>
+</body>
+</html>
+""")
 
 app.mount("/login", login_app)
 
