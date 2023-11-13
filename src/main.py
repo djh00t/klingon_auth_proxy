@@ -13,7 +13,7 @@ from .secrets import SECRET_KEY
 
 # Create a logger
 logger = logging.getLogger(__name__)
-logger.setLevel(logging.INFO)
+logger.setLevel(logging.DEBUG)
 
 # FILEPATH: src/main.py
 

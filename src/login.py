@@ -17,7 +17,7 @@ from .secrets import SECRET_KEY, HTACCESS_FILE
 
 # Create a logger
 logger = logging.getLogger(__name__)
-logger.setLevel(logging.INFO)
+logger.setLevel(logging.DEBUG)
 
 # Create FastAPI app
 app = FastAPI()
