@@ -11,5 +11,5 @@ services:
       - SECRET_KEY_FILE=/com.docker.devenvironments.code/secret.key
     volumes:
     - type: bind
-      source: /Users/djh/work/src/github.com/klingon_auth_proxy/secrets
+      source: /Users/djh/work/src/github.com/djh00t/klingon_auth_proxy/secrets
       target: /app/secrets
