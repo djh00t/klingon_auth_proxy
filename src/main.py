@@ -106,7 +106,7 @@ async def root():
 @app.get("/login")
 async def login_get(request: Request):
     logger.info(f"Looking for login.html in: {os.path.abspath('templates')}")
-    return templates.TemplateResponse("login.html", {"request": request})
+    return templates.TemplateResponse("templates/login.html", {"request": request})
 
 
 if __name__ == "__main__":
