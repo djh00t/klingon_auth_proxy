@@ -116,8 +116,8 @@ async def root(request: Request):
     logger.info(f"Redirecting / request to /login")
     return RedirectResponse(url="/login")
 
-@app.get("/auth")
-@app.get("/login")
+
+@app.get("auth", "/login")
 async def login_get(request: Request):
     referrer_url = request.headers.get("referer")
     logger.info(f"Referrer URL: {referrer_url}")
@@ -128,8 +128,7 @@ async def login_get(request: Request):
     response.set_cookie(key="referrer_url", value=referrer_url)
     return templates.TemplateResponse("login.html", {"request": request})
 
-@app.post("/auth")
-@app.post("/login")
+@app.post("/auth", "/login")
 async def login_post(request: Request, response: Response, username: str = Form(...), password: str = Form(...)):
     """
     Authenticates user credentials and generates a JWT token if the credentials are valid.
