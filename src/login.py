@@ -47,7 +47,7 @@ def check_credentials(username: str, password: str):
 
 @app.get("/login")
 async def login_get(request: Request):
-    return templates.TemplateResponse("login.html", {"request": request})
+    return templates.TemplateResponse("templates/login.html", {"request": request})
 
 @app.post("/login")
 async def login_post(request: Request, response: Response, username: str = Form(...), password: str = Form(...), url: str = Form('/')):
