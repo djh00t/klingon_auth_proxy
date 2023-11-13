@@ -72,7 +72,7 @@ def list_users(file_path):
             for line in file:
                 if line.strip():
                     username, _ = line.strip().split(':', 1)
-                    logger.info(f"User found: {username}")
+                    logger.debug(f"User found: {username}")
     except FileNotFoundError:
         logger.error(f"File not found: {file_path}")
 
