@@ -9,9 +9,6 @@ set -u # Exit when it tries to use undefined variable
 # Project name
 PROJECT="klingon-auth-proxy"
 
-# Make application directory safe for git
-git config --global --add safe.directory /com.docker.devenvironments.code
-
 # Add personal bashrc exports to bashrc
 # This will add the line every time the script runs, consider checking if the line already exists
 if ! grep -q "export AWS" /root/.bashrc; then
@@ -47,6 +44,9 @@ apt-get -y update; apt-get -y install \
     software-properties-common \
     unzip \
     wget
+
+# Make application directory safe for git
+git config --global --add safe.directory /com.docker.devenvironments.code
 
 # Install requirements.txt
 pip install -r /app/requirements.txt
