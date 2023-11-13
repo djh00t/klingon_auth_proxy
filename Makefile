@@ -13,6 +13,7 @@ test:
 
 install:
 	@echo "Installing dependencies..."
+	/app/bootstrap.sh
 	pip install -r requirements.txt
 
 run:
@@ -22,7 +23,7 @@ run:
 		export APP_PORT=9111; \
 	fi; \
 	echo "Using port $$APP_PORT"; \
-	uvicorn src.main:app --reload --host 0.0.0.0 --port $$APP_PORT --log-level debug
+	uvicorn src.main:app --reload --host 0.0.0.0 --port $$APP_PORT
 
 start:
 	@make run

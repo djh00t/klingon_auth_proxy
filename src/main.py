@@ -46,7 +46,6 @@ def check_credentials(username: str, password: str):
         return True
     else:
         logger.info(f"Credentials for user {username} are invalid.")
-        logger.debug(f"Failed password for user {username}: {password}")
         return False
 
 # Create Jinja2Templates instance
