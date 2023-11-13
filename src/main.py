@@ -3,7 +3,8 @@ This module defines a FastAPI app that requires authentication using JWT tokens.
 It defines a root endpoint that returns a message for authenticated users.
 """
 import os
-from fastapi import FastAPI, HTTPException, Depends
+from fastapi import FastAPI, HTTPException, Depends, Response
+from fastapi.responses import RedirectResponse
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from jose import JWTError, jwt
 import secrets
