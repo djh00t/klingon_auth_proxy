@@ -62,7 +62,7 @@ if not os.path.exists(login_html_path):
 </html>
 """)
 
-# app.mount("/login", login_app)
+app.mount("/login", login_app)
 
 # Security
 security = HTTPBearer()
