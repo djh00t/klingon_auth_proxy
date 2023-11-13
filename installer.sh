@@ -3,12 +3,6 @@
 ### Klingon Auth Proxy Dev Environment Setup Script
 ###
 
-#set -e # Exit on error
-#set -u # Exit when it tries to use undefined variable
-
-df -h
-mount
-
 # Project name
 PROJECT="klingon-auth-proxy"
 
