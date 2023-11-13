@@ -29,8 +29,8 @@ def get_hashing_algorithm(file_path):
             if line:
                 username, hashed_password = line.split(':', 1)
                 if hashed_password.startswith("$apr1$"):
-                    logger.info(f"Hashing algorithm for {file_path} detected: md5")
-                    return "md5"
+                    logger.info(f"Hashing algorithm for {file_path} detected: apr1_crypt")
+                    return "apr1_crypt"
     except FileNotFoundError:
         pass
     return 'bcrypt'

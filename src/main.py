@@ -29,6 +29,8 @@ security = HTTPBearer()
 APP_PORT = os.environ.get("APP_PORT", 9111)
 
 # Create FastAPI app
+from passlib.apache import HtpasswdFile
+
 def check_credentials(username: str, password: str):
     """
     Check if the given username and password are valid credentials.
@@ -40,15 +42,13 @@ def check_credentials(username: str, password: str):
     Returns:
         bool: True if the credentials are valid, False otherwise.
     """
-    with open(HTACCESS_FILE, 'r') as file:
-        for line in file:
-            if line.strip():
-                valid_user, valid_pass = line.strip().split(':', 1)
-                if username == valid_user and valid_pass == hashlib.md5(password.encode()).hexdigest():
-                    logger.info(f"Credentials for user {username} are valid.")
-                    return True
-    logger.info(f"Credentials for user {username} are invalid.")
-    return False
+    ht = HtpasswdFile(HTACCESS_FILE)
+    if ht.check_password(username, password):
+        logger.info(f"Credentials for user {username} are valid.")
+        return True
+    else:
+        logger.info(f"Credentials for user {username} are invalid.")
+        return False
 
 # Create Jinja2Templates instance
 templates = Jinja2Templates("./templates")
