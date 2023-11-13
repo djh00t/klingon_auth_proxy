@@ -28,14 +28,19 @@ def get_or_create_secret_key(file_path):
     """
     try:
         with open(file_path, "r") as file:
+            # Debug
+            print(f"Secret key read from {file_path}")
             return file.read().strip()
     except FileNotFoundError:
         secret_key = secrets.token_urlsafe(32)
         with open(file_path, "w") as file:
             file.write(secret_key)
+            # Debug
+            print(f"Secret key written to {file_path}")
         return secret_key
 
-SECRET_KEY = get_or_create_secret_key(SECRET_KEY_FILE)
+# Variables
+SECRET_KEY = get_or_create_secret_key(os.environ.get('SECRET_KEY_FILE', 'secret.key'))
 
 class AuthHandler(http.server.SimpleHTTPRequestHandler):
     """
