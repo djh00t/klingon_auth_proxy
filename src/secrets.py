@@ -36,7 +36,7 @@ def get_hashing_algorithm(file_path):
                                 return algorithm
     except FileNotFoundError:
         pass
-    return None
+    return 'sha256'
 
 HASHING_ALGORITHM = get_hashing_algorithm(HTACCESS_FILE)
 
