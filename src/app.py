@@ -12,7 +12,9 @@ import jwt
 import os
 import secrets
 
-PORT = 9111
+# Constants
+APP_PORT = os.environ.get("APP_PORT", 9111)
+HTACCESS_FILE = os.environ.get("HTACCESS_FILE", "../secrets")
 
 def get_or_create_secret_key(file_path):
     """
@@ -33,7 +35,7 @@ def get_or_create_secret_key(file_path):
             file.write(secret_key)
         return secret_key
 
-SECRET_KEY = get_or_create_secret_key("secret.key")
+SECRET_KEY = get_or_create_secret_key(SECRET_KEY_FILE)
 
 class AuthHandler(http.server.SimpleHTTPRequestHandler):
     """
@@ -48,7 +50,7 @@ class AuthHandler(http.server.SimpleHTTPRequestHandler):
             self.end_headers()
             return
 
-        authorization_header = self.headers.get('Authorization')  # Extract token from Authorization header
+        authorization_header = self.headers.get('Authorization')
         token = authorization_header[7:] if authorization_header and authorization_header.startswith('Bearer ') else None
 
         if not token:
@@ -63,7 +65,7 @@ class AuthHandler(http.server.SimpleHTTPRequestHandler):
             self.send_response(403)
         self.end_headers()
 
-def run(server_class=socketserver.TCPServer, handler_class=AuthHandler, port=PORT):
+def run(server_class=socketserver.TCPServer, handler_class=AuthHandler, port=APP_PORT):
     """
     Runs the server with the given server class, handler class, and port.
 
