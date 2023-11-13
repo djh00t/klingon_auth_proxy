@@ -6,7 +6,7 @@ The token is set as a cookie in the response and the user is redirected to the s
 
 # FILEPATH: src/login.py
 
-from fastapi import FastAPI, Request, Form, Cookie, HTTPException, Depends
+from fastapi import FastAPI, Request, Form, Cookie, HTTPException, Depends, Response
 from fastapi.responses import RedirectResponse, HTMLResponse
 from fastapi.templating import Jinja2Templates
 from jose import JWTError, jwt
