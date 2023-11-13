@@ -87,10 +87,13 @@ async def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(s
     if credentials:
         try:
             payload = jwt.decode(credentials.credentials, SECRET_KEY, algorithms=["HS256"])
+            logger.info(f"JWT token for user {payload['user']} decoded.")
             return payload
         except JWTError:
+            logger.info(f"Failed to decode JWT token for user {payload['user']}.")
             raise HTTPException(status_code=403, detail="Invalid token")
     else:
+        logger.info("Authorization header missing.")
         raise HTTPException(status_code=401, detail="Authorization header missing")
 
 app = FastAPI()

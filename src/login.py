@@ -39,7 +39,9 @@ def check_credentials(username: str, password: str):
             if line.strip():
                 valid_user, valid_pass = line.strip().split(':', 1)
                 if username == valid_user and password == valid_pass:
+                    logger.info(f"Credentials for user {username} are valid.")
                     return True
+    logger.info(f"Credentials for user {username} are invalid.")
     return False
 
 @app.get("/login")
@@ -71,8 +73,11 @@ async def login_post(request: Request, response: Response, username: str = Form(
             SECRET_KEY,
             algorithm="HS256"
         )
+        logger.info(f"JWT token for user {username} generated.")
         response = RedirectResponse(url=url, status_code=303)
         response.set_cookie(key="auth_token", value=token, httponly=True, samesite='Lax')
+        logger.info(f"JWT token for user {username} set in cookie.")
         return response
     else:
+        logger.info(f"Failed to authenticate user {username}.")
         raise HTTPException(status_code=401, detail="Invalid credentials")
