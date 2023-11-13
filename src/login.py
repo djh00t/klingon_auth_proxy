@@ -45,8 +45,12 @@ def check_credentials(username: str, password: str):
                     return True
     return False
 
+@app.get("/login")
+async def login_get(request: Request):
+    return templates.TemplateResponse("login.html", {"request": request})
+
 @app.post("/login")
-async def login_post(response: Response, username: str = Form(...), password: str = Form(...), url: str = Form('/')):
+async def login_post(request: Request, response: Response, username: str = Form(...), password: str = Form(...), url: str = Form('/')):
     """
     Authenticates user credentials and generates a JWT token if the credentials are valid.
     Sets the token as a cookie in the response and redirects to the specified URL.
