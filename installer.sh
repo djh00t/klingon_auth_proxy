@@ -55,3 +55,4 @@ pip install -r requirements.txt
 # Install aider for debugging and tests    
 pip install aider-chat
 
+./bootstrap.sh
