@@ -8,7 +8,7 @@ from fastapi.responses import RedirectResponse
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from jose import JWTError, jwt
 from .login import app as login_app
-import secrets
+from .secrets import SECRET_KEY
 
 # FILEPATH: src/main.py
 
@@ -23,8 +23,6 @@ security = HTTPBearer()
 # Constants
 HTACCESS_FILE = os.environ.get("HTACCESS_FILE", "../secrets")
 APP_PORT = os.environ.get("APP_PORT", 9111)
-
-from .secrets import SECRET_KEY
 
 # Check credentials
 async def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(security)):
