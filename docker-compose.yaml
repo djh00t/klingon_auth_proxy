@@ -10,4 +10,4 @@ services:
       - HTACCESS_FILE=/com.docker.devenvironments.code/secrets
       - SECRET_KEY_FILE=/com.docker.devenvironments.code/secret.key
     volumes:
-      - /etc/nginx/passwords:/etc/nginx/passwords:ro
+      - /etc/nginx/passwords:/app/htpasswd:ro
