@@ -15,7 +15,7 @@ import secrets
 # Create FastAPI app
 app = FastAPI()
 
-app.mount("/", login_app)
+app.mount("/login", login_app)
 
 # Security
 security = HTTPBearer()

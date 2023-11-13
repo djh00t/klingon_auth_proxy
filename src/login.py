@@ -71,7 +71,7 @@ def check_credentials(username: str, password: str):
                     return True
     return False
 
-@app.get("/login", response_class=HTMLResponse)
+@app.get("/", response_class=HTMLResponse)
 async def login_get(request: Request, url: str = '/'):
     """
     Returns a HTML response for the login page.
