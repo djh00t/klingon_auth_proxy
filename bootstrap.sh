@@ -14,3 +14,6 @@ git config --global user.name $MY_NAME
 
 # Make application directory safe for git
 git config --global --add safe.directory /com.docker.devenvironments.code
+
+# Set up git pull rebase
+git config pull.rebase true
