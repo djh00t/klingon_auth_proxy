@@ -6,9 +6,12 @@ services:
       - infinity
     image: docker/dev-environments-default:stable-1
     init: true
+#    ports:
+#      - "9111:80"
     environment:
       - HTACCESS_FILE=/app/secrets
       - SECRET_KEY_FILE=/app/secret.key
+      - APP_PORT=80
     volumes:
       - type: bind
         source: /var/run/docker.sock
@@ -22,7 +25,7 @@ services:
   nginx:
     image: nginx:latest
     ports:
-      - "8080:80"
+      - "80:80"
     volumes:
       - ./nginx/config/default.conf:/etc/nginx/conf.d/default.conf
       - ./nginx/html:/usr/share/nginx/html

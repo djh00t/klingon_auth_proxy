@@ -12,6 +12,9 @@ HTACCESS_FILE = os.environ.get("HTACCESS_FILE", "secrets")
 
 logger.info(f"HTACCESS_FILE is: {HTACCESS_FILE}")
 
+# JWT token hashing algorithm
+JWT_HASHING_ALGORITHM = "HS256"
+
 # Confirm the type of hashing used in HTACCESS_FILE
 def get_hashing_algorithm(file_path):
     """
