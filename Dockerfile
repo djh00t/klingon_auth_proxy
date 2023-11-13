@@ -9,7 +9,7 @@ WORKDIR /app
 COPY . /app
 
 # Install production dependencies.
-RUN ls -lah; /app/installer.sh
+RUN bash /app/installer.sh
 
 # Run the web service on container startup.
 CMD ["python", "/app/src/main.py"]
