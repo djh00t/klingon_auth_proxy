@@ -146,16 +146,8 @@ async def login_post(request: Request, response: Response, username: str = Form(
     """
     logger.info(f"Handling authentication POST")
     if check_credentials(username, password):
-        token = jwt.encode(
-            {"user": username, "exp": datetime.now(timezone.utc) + timedelta(hours=1)},
-            SECRET_KEY,
-            algorithm="HS256"
-        )
-        logger.info(f"JWT token for user {username} generated.")
-        response = RedirectResponse(url=url, status_code=303)
-        response.set_cookie(key="auth_token", value=token, httponly=True, samesite='Lax')
-        logger.info(f"JWT token for user {username} set in cookie.")
-        return response
+        logger.info(f"Credentials for user {username} are valid.")
+        return {"message": "Credentials are valid"}
     else:
         logger.info(f"Failed to authenticate user {username}.")
         raise HTTPException(status_code=401, detail="Invalid credentials")
