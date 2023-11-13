@@ -50,7 +50,7 @@ apt-get -y update; apt-get -y install \
 git config --global --add safe.directory /com.docker.devenvironments.code
 
 # Install requirements.txt
-pip install -r /app/requirements.txt
+pip install -r requirements.txt
 
 # Install aider for debugging and tests    
 pip install aider-chat
