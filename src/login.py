@@ -71,20 +71,6 @@ def check_credentials(username: str, password: str):
                     return True
     return False
 
-@app.get("/", response_class=HTMLResponse)
-async def login_get(request: Request, url: str = '/'):
-    """
-    Returns a HTML response for the login page.
-
-    Args:
-        request (Request): The request object.
-        url (str, optional): The original URL. Defaults to '/'.
-
-    Returns:
-        TemplateResponse: The HTML response for the login page.
-    """
-    return templates.TemplateResponse("login.html", {"request": request, "original_url": url})
-
 @app.post("/login")
 async def login_post(response: Response, username: str = Form(...), password: str = Form(...), url: str = Form('/')):
     """
@@ -114,7 +100,3 @@ async def login_post(response: Response, username: str = Form(...), password: st
         return response
     else:
         raise HTTPException(status_code=401, detail="Invalid credentials")
-
-if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=APP_PORT)

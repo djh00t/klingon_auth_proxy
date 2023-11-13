@@ -26,6 +26,15 @@ APP_PORT = os.environ.get("APP_PORT", 9111)
 
 # Generate secret.key if it doesn't exist
 def get_or_create_secret_key(file_path):
+    """
+    Reads the secret key from the given file path, or creates a new one if the file does not exist.
+
+    Args:
+        file_path (str): The path to the file containing the secret key.
+
+    Returns:
+        str: The secret key read from the file or newly generated if the file did not exist.
+    """
     try:
         with open(file_path, "r") as file:
             return file.read().strip()
@@ -67,3 +76,7 @@ app = FastAPI()
 async def root():
     return RedirectResponse(url="/login")
 
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=APP_PORT)
