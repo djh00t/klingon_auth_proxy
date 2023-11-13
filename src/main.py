@@ -6,6 +6,7 @@ It defines a root endpoint that returns a message for authenticated users.
 import os
 import logging
 import bcrypt
+from passlib.apache import HtpasswdFile
 from fastapi import FastAPI, Request, Form, Cookie, HTTPException, Depends, Response
 from fastapi.responses import RedirectResponse
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
@@ -27,9 +28,6 @@ security = HTTPBearer()
 
 # Set APP_PORT from environment variable or default to 9111
 APP_PORT = os.environ.get("APP_PORT", 9111)
-
-# Create FastAPI app
-from passlib.apache import HtpasswdFile
 
 def check_credentials(username: str, password: str):
     """
