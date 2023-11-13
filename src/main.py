@@ -11,7 +11,7 @@ from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from fastapi.templating import Jinja2Templates
 from jose import JWTError, jwt
 from datetime import datetime, timedelta, timezone
-from .secrets import SECRET_KEY, HTACCESS_FILE
+from .secrets import SECRET_KEY, HTACCESS_FILE, HASHING_ALGORITHM
 import hashlib
 
 # Create a logger
