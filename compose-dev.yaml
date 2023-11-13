@@ -16,5 +16,5 @@ services:
         source: /var/run/docker.sock
         target: /var/run/docker.sock
       - type: bind
-        source: "${HOME}/work/src/github.com/djh00t/klingon_auth_proxy/secrets"
+        source: "/Users/djh/work/src/github.com/djh00t/klingon_auth_proxy/secrets"
         target: /app/secrets
