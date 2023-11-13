@@ -10,7 +10,7 @@ from fastapi.responses import RedirectResponse
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from fastapi.templating import Jinja2Templates
 from jose import JWTError, jwt
-from login import app as login_app
+from .login import app as login_app
 from .secrets import SECRET_KEY
 
 # Create a logger
