@@ -25,8 +25,8 @@ app = FastAPI()
 # Initialize templates for FastAPI. If the templates directory doesn't exist,
 # create it and add a default index.html file.
 if not os.path.exists("./templates"):
-    os.mkdir("./templates")
-    with open("./templates/index.html", "w") as file:
+    os.mkdir("./src/templates")
+    with open("./src/templates/index.html", "w") as file:
         file.write("<h1>Hello world!</h1>")
 templates_dir = os.path.join(os.path.dirname(os.path.realpath(__file__)), "templates")
 templates = Jinja2Templates(directory=templates_dir)

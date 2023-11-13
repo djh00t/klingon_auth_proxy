@@ -11,12 +11,14 @@ from datetime import datetime, timedelta, timezone
 import jwt
 import os
 import secrets
+from itsdangerous import json
+import json
 
 app = Flask(__name__)
 
 # Constants
-HTACCESS_FILE = os.environ.get('HTACCESS_FILE', '../secrets')
-APP_PORT=os.environ.get('APP_PORT', 9111)
+APP_PORT = os.environ.get("APP_PORT", 9111)
+HTACCESS_FILE = os.environ.get("HTACCESS_FILE", "../secrets")
 
 def get_or_create_secret_key(file_path):
     """
@@ -43,7 +45,6 @@ def get_or_create_secret_key(file_path):
 
 # Variables
 SECRET_KEY = get_or_create_secret_key(os.environ.get('SECRET_KEY_FILE', 'secret.key'))
-
 """
 # SECRET_KEY
 Generate SECRET_KEY if it doesn't exist otherwise read the file.

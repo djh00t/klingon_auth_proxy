@@ -1,5 +1,5 @@
 import unittest
-from src import app
+from . import main
 import jwt
 import os
 from http.server import HTTPServer
@@ -12,9 +12,9 @@ class TestAuthHandler(unittest.TestCase):
     def setUpClass(cls):
         # Generating a test secret key
         cls.test_secret_key = 'test_secret_key'
-        app.SECRET_KEY = cls.test_secret_key
+        main.SECRET_KEY = cls.test_secret_key
         # Starting the server in a new thread
-        cls.server = HTTPServer(('', app.PORT), app.AuthHandler)
+        cls.server = HTTPServer(('', main.PORT), main.AuthHandler)
         cls.thread = threading.Thread(target=cls.server.serve_forever)
         cls.thread.start()
 
@@ -28,7 +28,7 @@ class TestAuthHandler(unittest.TestCase):
         # Generate a valid token
         valid_token = jwt.encode({'user': 'test_user'}, self.test_secret_key, algorithm="HS256")
         # Make a request with the valid token
-        conn = HTTPConnection("localhost", app.PORT)
+        conn = HTTPConnection("localhost", main.PORT)
         conn.request("GET", "/", headers={"Authorization": f"Bearer {valid_token}"})
         response = conn.getresponse()
         # Test that the response is 200 OK
@@ -36,7 +36,7 @@ class TestAuthHandler(unittest.TestCase):
 
     def test_invalid_token(self):
         # Make a request with an invalid token
-        conn = HTTPConnection("localhost", app.PORT)
+        conn = HTTPConnection("localhost", main.PORT)
         conn.request("GET", "/", headers={"Authorization": "Bearer invalid_token"})
         response = conn.getresponse()
         # Test that the response is 403 Forbidden

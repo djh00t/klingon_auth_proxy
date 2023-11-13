@@ -5,6 +5,8 @@ services:
     - infinity
     image: docker/dev-environments-default:stable-1
     init: true
+    ports:
+      - "9111:9111"
     environment:
       - APP_PORT=9111
       - HTACCESS_FILE=/com.docker.devenvironments.code/secrets

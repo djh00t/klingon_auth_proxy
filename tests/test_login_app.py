@@ -1,12 +1,12 @@
 import unittest
-import src.login_app
+import login
 from flask import json
 
 class TestLoginApp(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        src.login_app.app.testing = True
-        cls.client = src.login_app.app.test_client()
+        src.login.app.testing = True
+        cls.client = src.login.app.test_client()
 
     # No changes needed if the test is working correctly
 

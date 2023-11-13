@@ -17,7 +17,12 @@ install:
 
 run:
 	@echo "Running the application..."
-	python src/app.py
+	@export APP_PORT=$${APP_PORT:-9111}; \
+	if ! echo $$APP_PORT | egrep -q '^[0-9]+$$'; then \
+		export APP_PORT=9111; \
+	fi; \
+	echo "Using port $$APP_PORT"; \
+	uvicorn src.main:app --reload --host 0.0.0.0 --port $$APP_PORT --log-level debug
 
 start:
 	@make run
