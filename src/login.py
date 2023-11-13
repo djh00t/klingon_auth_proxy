@@ -47,6 +47,7 @@ def check_credentials(username: str, password: str):
 
 @app.get("/login")
 async def login_get(request: Request):
+    print(f"Looking for login.html in: {os.path.abspath('templates')}")
     return templates.TemplateResponse("templates/login.html", {"request": request})
 
 @app.post("/login")
