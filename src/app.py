@@ -54,7 +54,10 @@ class AuthHandler(http.server.SimpleHTTPRequestHandler):
         token = authorization_header[7:] if authorization_header and authorization_header.startswith('Bearer ') else None
 
         if not token:
-            self.send_response(401)
+            if self.path in ['/', '/login']:
+                self.send_response(200)
+            else:
+                self.send_response(401)
             self.end_headers()
             return
 
