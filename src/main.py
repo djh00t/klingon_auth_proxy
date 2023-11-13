@@ -18,7 +18,7 @@ import hashlib
 
 # Create a logger
 logger = logging.getLogger("uvicorn")
-logger.setLevel(logging.DEBUG)
+logger.setLevel(logging.INFO)
 
 # Create FastAPI app
 app = FastAPI()

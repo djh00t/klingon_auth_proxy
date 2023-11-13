@@ -5,7 +5,7 @@ import logging
 
 # Create a logger
 logger = logging.getLogger("uvicorn")
-logger.setLevel(logging.DEBUG)
+logger.setLevel(logging.INFO)
 
 # Constants
 HTACCESS_FILE = os.environ.get("HTACCESS_FILE", "secrets")
