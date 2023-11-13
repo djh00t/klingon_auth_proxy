@@ -144,12 +144,14 @@ async def login_post(request: Request, response: Response, username: str = Form(
     Raises:
     - HTTPException: If the credentials are invalid.
     """
-    logger.info(f"Handling authentication POST")
+    logger.debug(f"Received username: {username}")
+    logger.debug(f"Received password: {password}")
+    logger.debug(f"Checking credentials against secrets file: {HTACCESS_FILE}")
     if check_credentials(username, password):
-        logger.info(f"Credentials for user {username} are valid.")
+        logger.debug(f"Credentials for user {username} are valid.")
         return {"message": "Credentials are valid"}
     else:
-        logger.info(f"Failed to authenticate user {username}.")
+        logger.debug(f"Failed to authenticate user {username}.")
         raise HTTPException(status_code=401, detail="Invalid credentials")
 
 
