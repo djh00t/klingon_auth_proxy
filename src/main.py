@@ -7,12 +7,15 @@ from fastapi import FastAPI, HTTPException, Depends, Response
 from fastapi.responses import RedirectResponse
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from jose import JWTError, jwt
+from .login import app as login_app
 import secrets
 
 # FILEPATH: src/main.py
 
 # Create FastAPI app
 app = FastAPI()
+
+app.mount("/login", login_app)
 
 # Security
 security = HTTPBearer()
