@@ -16,7 +16,7 @@ services:
       target: /var/run/docker.sock
     - type: bind
       source: "${HOME}/.bash_profile"
-      target: /root/.bash_profile
+      target: /app/.bash_profile
     - type: bind
       source: "${HOME}/work/src/github.com/djh00t/klingon_auth_proxy/secrets"
       target: /app/secrets
