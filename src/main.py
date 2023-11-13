@@ -3,12 +3,17 @@ This module defines a FastAPI app that requires authentication using JWT tokens.
 It defines a root endpoint that returns a message for authenticated users.
 """
 import os
+import logging
 from fastapi import FastAPI, HTTPException, Depends, Response
 from fastapi.responses import RedirectResponse
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from jose import JWTError, jwt
 from .login import app as login_app
 from .secrets import SECRET_KEY
+
+# Create a logger
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
 
 # FILEPATH: src/main.py
 

@@ -6,6 +6,7 @@ The token is set as a cookie in the response and the user is redirected to the s
 
 # FILEPATH: src/login.py
 
+import logging
 from fastapi import FastAPI, Request, Form, Cookie, HTTPException, Depends, Response
 from fastapi.responses import RedirectResponse, HTMLResponse
 from fastapi.templating import Jinja2Templates
@@ -13,6 +14,10 @@ from jose import JWTError, jwt
 from datetime import datetime, timedelta, timezone
 import os
 from .secrets import SECRET_KEY, HTACCESS_FILE
+
+# Create a logger
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
 
 # Create FastAPI app
 app = FastAPI()
@@ -47,7 +52,7 @@ def check_credentials(username: str, password: str):
 
 @app.get("/login")
 async def login_get(request: Request):
-    print(f"Looking for login.html in: {os.path.abspath('templates')}")
+    logger.info(f"Looking for login.html in: {os.path.abspath('templates')}")
     return templates.TemplateResponse("templates/login.html", {"request": request})
 
 @app.post("/login")
