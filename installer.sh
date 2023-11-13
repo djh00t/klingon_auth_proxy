@@ -18,6 +18,10 @@ if ! grep -q "export GITHUB" /root/.bashrc; then
     cat /app/.bash_profile | grep -v "#" | grep "export GITHUB" >> /root/.bashrc
 fi
 
+if ! grep -q "bootstrap.sh" /root/.bashrc; then
+    echo "source /app/bootstrap.sh" >> /root/.bashrc
+fi
+
 # Source /root/.bashrc
 # It's assumed that this file exists and is readable
 if [[ -f /root/.bashrc ]]; then
