@@ -1,25 +1,23 @@
+# FILEPATH: src/main.py
 """
 This module defines a FastAPI app that requires authentication using JWT tokens.
 It defines a root endpoint that returns a message for authenticated users.
 """
 import os
 import logging
-from fastapi import FastAPI, HTTPException, Depends, Response
+from fastapi import FastAPI, Request, Form, Cookie, HTTPException, Depends, Response
 from fastapi.responses import RedirectResponse
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
+from fastapi.templating import Jinja2Templates
 from jose import JWTError, jwt
-from .login import app as login_app
+#from .login import app as login_app
 from .secrets import SECRET_KEY
 
 # Create a logger
 logger = logging.getLogger("uvicorn")
 logger.setLevel(logging.DEBUG)
 
-# FILEPATH: src/main.py
 
-# Logging
-logging.basicConfig(level=logging.DEBUG)
-logger = logging.getLogger("uvicorn.error")
 
 import os
 
@@ -61,7 +59,7 @@ if not os.path.exists(login_html_path):
 </html>
 """)
 
-app.mount("/login", login_app)
+# app.mount("/login", login_app)
 
 # Security
 security = HTTPBearer()
@@ -101,6 +99,11 @@ app = FastAPI()
 @app.get("/")
 async def root():
     return RedirectResponse(url="/login")
+
+@app.get("/login")
+async def login_get(request: Request):
+    logger.info(f"Looking for login.html in: {os.path.abspath('templates')}")
+    return templates.TemplateResponse("templates/login.html", {"request": request})
 
 
 if __name__ == "__main__":
