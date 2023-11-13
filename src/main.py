@@ -17,6 +17,10 @@ logger.setLevel(logging.INFO)
 
 # FILEPATH: src/main.py
 
+# Logging
+logging.basicConfig(level=logging.DEBUG)
+logger = logging.getLogger("uvicorn.error")
+
 # Create FastAPI app
 app = FastAPI()
 
@@ -61,4 +65,4 @@ async def root():
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=APP_PORT, debug=True)
+    uvicorn.run(app, host="0.0.0.0", port=APP_PORT, log_level="debug")
