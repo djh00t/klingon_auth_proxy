@@ -128,6 +128,7 @@ async def login_get(request: Request):
     response.set_cookie(key="referrer_url", value=referrer_url)
     return templates.TemplateResponse("login.html", {"request": request})
 
+@app.post("/auth")
 @app.post("/login")
 async def login_post(request: Request, response: Response, username: str = Form(...), password: str = Form(...)):
     """
