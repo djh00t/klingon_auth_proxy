@@ -50,7 +50,7 @@ class AuthHandler(http.server.SimpleHTTPRequestHandler):
     Otherwise, a 401 Unauthorized response is sent.
     """
     def do_GET(self):
-        if self.path in ['/', '/login']:
+        if self.path in ['/', '/login', '/favicon.ico']:
             self.send_response(200)
             self.end_headers()
             return
@@ -59,7 +59,7 @@ class AuthHandler(http.server.SimpleHTTPRequestHandler):
         token = authorization_header[7:] if authorization_header and authorization_header.startswith('Bearer ') else None
 
         if not token:
-            if self.path in ['/', '/login']:
+            if self.path in ['/', '/login', '/favicon.ico']:
                 self.send_response(200)
             else:
                 self.send_response(401)
