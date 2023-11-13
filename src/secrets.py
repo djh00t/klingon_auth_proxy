@@ -70,5 +70,24 @@ def get_or_create_secret_key(file_path):
             file.write(secret_key)
         return secret_key
 
+def list_users(file_path):
+    """
+    Reads the usernames from the given htaccess file.
+
+    Args:
+        file_path (str): The path to the htaccess file.
+    """
+    try:
+        with open(file_path, 'r') as file:
+            for line in file:
+                if line.strip():
+                    username, _ = line.strip().split(':', 1)
+                    logger.info(f"User found: {username}")
+    except FileNotFoundError:
+        logger.error(f"File not found: {file_path}")
+
 # Generate SECRET_KEY if it doesn't exist otherwise read the file.
 SECRET_KEY = get_or_create_secret_key("secret.key")
+
+# List users in HTACCESS_FILE
+list_users(HTACCESS_FILE)
