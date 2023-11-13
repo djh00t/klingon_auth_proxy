@@ -43,6 +43,11 @@ class AuthHandler(http.server.SimpleHTTPRequestHandler):
     Otherwise, a 401 Unauthorized response is sent.
     """
     def do_GET(self):
+        if self.path in ['/', '/login']:
+            self.send_response(200)
+            self.end_headers()
+            return
+
         authorization_header = self.headers.get('Authorization')  # Extract token from Authorization header
         token = authorization_header[7:] if authorization_header and authorization_header.startswith('Bearer ') else None
 
