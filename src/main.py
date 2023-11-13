@@ -10,7 +10,9 @@ from fastapi.responses import RedirectResponse
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from fastapi.templating import Jinja2Templates
 from jose import JWTError, jwt
-from .login import app as login_app
+from jose import JWTError, jwt
+from datetime import datetime, timedelta, timezone
+from .secrets import SECRET_KEY, HTACCESS_FILE
 from .secrets import SECRET_KEY
 
 # Create a logger
@@ -22,7 +24,59 @@ logger.setLevel(logging.DEBUG)
 import os
 
 # Create FastAPI app
-app = FastAPI()
+def check_credentials(username: str, password: str):
+    """
+    Check if the given username and password are valid credentials.
+
+    Args:
+        username (str): The username to check.
+        password (str): The password to check.
+
+    Returns:
+        bool: True if the credentials are valid, False otherwise.
+    """
+    with open(HTACCESS_FILE, 'r') as file:
+        for line in file:
+            if line.strip():
+                valid_user, valid_pass = line.strip().split(':', 1)
+                if username == valid_user and password == valid_pass:
+                    logger.info(f"Credentials for user {username} are valid.")
+                    return True
+    logger.info(f"Credentials for user {username} are invalid.")
+    return False
+
+@app.post("/login")
+async def login_post(request: Request, response: Response, username: str = Form(...), password: str = Form(...), url: str = Form('/')):
+    """
+    Authenticates user credentials and generates a JWT token if the credentials are valid.
+    Sets the token as a cookie in the response and redirects to the specified URL.
+
+    Args:
+    - response (Response): The response object to set the cookie and redirect.
+    - username (str): The username entered by the user.
+    - password (str): The password entered by the user.
+    - url (str): The URL to redirect to after successful authentication. Defaults to '/'.
+
+    Returns:
+    - response (Response): The response object with the token cookie set and redirected to the specified URL.
+
+    Raises:
+    - HTTPException: If the credentials are invalid.
+    """
+    if check_credentials(username, password):
+        token = jwt.encode(
+            {"user": username, "exp": datetime.now(timezone.utc) + timedelta(hours=1)},
+            SECRET_KEY,
+            algorithm="HS256"
+        )
+        logger.info(f"JWT token for user {username} generated.")
+        response = RedirectResponse(url=url, status_code=303)
+        response.set_cookie(key="auth_token", value=token, httponly=True, samesite='Lax')
+        logger.info(f"JWT token for user {username} set in cookie.")
+        return response
+    else:
+        logger.info(f"Failed to authenticate user {username}.")
+        raise HTTPException(status_code=401, detail="Invalid credentials")
 
 # Create Jinja2Templates instance
 templates = Jinja2Templates("./templates")
@@ -62,7 +116,7 @@ if not os.path.exists(login_html_path):
 </html>
 """)
 
-app.mount("/login", login_app)
+# app.mount("/login", login_app)
 
 # Security
 security = HTTPBearer()
