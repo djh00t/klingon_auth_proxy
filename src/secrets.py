@@ -4,7 +4,34 @@ import secrets
 # Constants
 HTACCESS_FILE = os.environ.get("HTACCESS_FILE", "secrets")
 
+import hashlib
+
 # Confirm the type of hashing used in HTACCESS_FILE
+def get_hashing_algorithm(file_path):
+    """
+    Determines the type of hashing used in the given htaccess file.
+
+    Args:
+        file_path (str): The path to the htaccess file.
+
+    Returns:
+        str: The name of the hashing algorithm if a match is found, None otherwise.
+    """
+    try:
+        with open(file_path, 'r') as file:
+            line = file.readline().strip()
+            if line:
+                username, hashed_password = line.split(':', 1)
+                for algorithm in hashlib.algorithms_guaranteed:
+                    hasher = hashlib.new(algorithm)
+                    hasher.update(username.encode())
+                    if hasher.hexdigest() == hashed_password:
+                        return algorithm
+    except FileNotFoundError:
+        pass
+    return None
+
+HASHING_ALGORITHM = get_hashing_algorithm(HTACCESS_FILE)
 
 
 

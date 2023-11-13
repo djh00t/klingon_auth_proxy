@@ -39,11 +39,14 @@ def check_credentials(username: str, password: str):
     Returns:
         bool: True if the credentials are valid, False otherwise.
     """
+    hasher = hashlib.new(HASHING_ALGORITHM)
+    hasher.update(password.encode())
+    hashed_password = hasher.hexdigest()
     with open(HTACCESS_FILE, 'r') as file:
         for line in file:
             if line.strip():
                 valid_user, valid_pass = line.strip().split(':', 1)
-                if username == valid_user and password == valid_pass:
+                if username == valid_user and hashed_password == valid_pass:
                     logger.info(f"Credentials for user {username} are valid.")
                     return True
     logger.info(f"Credentials for user {username} are invalid.")
