@@ -25,8 +25,14 @@ def get_hashing_algorithm(file_path):
                 for algorithm in hashlib.algorithms_guaranteed:
                     hasher = hashlib.new(algorithm)
                     hasher.update(username.encode())
-                    if hasher.hexdigest() == hashed_password:
-                        return algorithm
+                    try:
+                        if hasher.hexdigest() == hashed_password:
+                            return algorithm
+                    except TypeError:
+                        # Some algorithms like 'shake_128' and 'shake_256' require a length argument
+                        for length in range(1, 65):  # Try lengths from 1 to 64
+                            if hasher.hexdigest(length) == hashed_password:
+                                return algorithm
     except FileNotFoundError:
         pass
     return None
