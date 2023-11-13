@@ -24,6 +24,9 @@ import os
 # Create FastAPI app
 app = FastAPI()
 
+# Create Jinja2Templates instance
+templates = Jinja2Templates("templates")
+
 # Check if templates directory exists and create it if it doesn't
 if not os.path.exists('templates'):
     os.makedirs('templates')
