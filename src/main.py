@@ -125,7 +125,13 @@ async def login_get(request: Request):
     # You can save this URL in a session variable or cookie as needed
     # Example: Save in a cookie
     response = templates.TemplateResponse("login.html", {"request": request})
-    response.set_cookie(key="referrer_url", value=referrer_url)
+    response.set_cookie(
+        key="referrer_url",
+        value=referrer_url,
+        httponly=True,
+        secure=True,
+        samesite="strict"
+    )
     return templates.TemplateResponse("login.html", {"request": request})
 
 @app.post("/auth")
@@ -148,7 +154,13 @@ async def login_post(request: Request, response: Response, username: str = Form(
     """
     if check_credentials(username, password):
         token = jwt.encode({"sub": username}, SECRET_KEY, algorithm=JWT_HASHING_ALGORITHM)
-        response.set_cookie(key="Authorization", value=f"Bearer {token}")
+        response.set_cookie(
+            key="Authorization",
+            value=f"Bearer {token}",
+            httponly=True,
+            secure=True,
+            samesite="strict"
+        )
         original_url = request.cookies.get("original_url", "/")
         logger.debug(f"Credentials for user {username} are valid.")
         return RedirectResponse(url=original_url, status_code=status.HTTP_303_SEE_OTHER)
