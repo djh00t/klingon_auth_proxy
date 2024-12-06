@@ -6,3 +6,5 @@ environment
 **.pyc
 secrets
 secret.key
+.aider*
+.env
