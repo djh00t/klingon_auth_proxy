@@ -2,6 +2,7 @@ import os
 import secrets
 import hashlib
 import logging
+from cryptography.fernet import Fernet
 
 # Create a logger
 logger = logging.getLogger("uvicorn")
@@ -42,6 +43,14 @@ HASHING_ALGORITHM = get_hashing_algorithm(HTACCESS_FILE)
 
 logger.info(f"HASHING_ALGORITHM is: {HASHING_ALGORITHM}")
 
+# Encryption and decryption functions
+def encrypt_secret_key(secret_key, encryption_key):
+    fernet = Fernet(encryption_key)
+    return fernet.encrypt(secret_key.encode()).decode()
+
+def decrypt_secret_key(encrypted_secret_key, encryption_key):
+    fernet = Fernet(encryption_key)
+    return fernet.decrypt(encrypted_secret_key.encode()).decode()
 
 # Generate secret.key if it doesn't exist
 def get_or_create_secret_key(file_path):
@@ -54,13 +63,16 @@ def get_or_create_secret_key(file_path):
     Returns:
         str: The secret key read from the file or newly generated if the file did not exist.
     """
+    encryption_key = os.environ.get("ENCRYPTION_KEY", Fernet.generate_key().decode())
     try:
         with open(file_path, "r") as file:
-            return file.read().strip()
+            encrypted_secret_key = file.read().strip()
+            return decrypt_secret_key(encrypted_secret_key, encryption_key)
     except FileNotFoundError:
         secret_key = secrets.token_urlsafe(32)
+        encrypted_secret_key = encrypt_secret_key(secret_key, encryption_key)
         with open(file_path, "w") as file:
-            file.write(secret_key)
+            file.write(encrypted_secret_key)
         return secret_key
 
 def list_users(file_path):
